@@ -1,6 +1,7 @@
-import Head from "next/head";
 import { useState, useEffect } from "react";
 import Intro from "../components/Intro";
+import MetaData from "../components/MetaData";
+import NavigationBar from "../components/NavigationBar";
 import styles from "../styles/Home.module.css";
 
 export default function Home() {
@@ -14,11 +15,8 @@ export default function Home() {
 
   return (
     <div className={styles.container}>
-      <Head>
-        <title>FAZIZ TRAINING</title>
-        <link rel="icon" href="/favicon.ico" />
-      </Head>
-
+      <MetaData />
+      <NavigationBar />
       <main className={styles.main}>
         <Intro showIntro={showIntro} />
       </main>

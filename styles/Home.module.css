@@ -156,6 +156,13 @@
   font-family: "Montserrat", sans-serif;
 }
 
+.navbar {
+  color: black;
+  position: fixed;
+  top: 0;
+  width: 100%;
+}
+
 @media (max-width: 800px) {
   .intro-container {
     display: flex;
