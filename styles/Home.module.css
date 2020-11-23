@@ -163,6 +163,40 @@
   width: 100%;
 }
 
+.center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.testimonial-card {
+  max-width: 400px;
+  max-height: 200px;
+  text-align: center;
+  color: black;
+  font-size: 15px;
+}
+
+.slider {
+  max-width: 400px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.quote {
+  margin-bottom: 2%;
+  font-style: italic;
+  font-family: "Montserrat", sans-serif;
+}
+
+.client-name {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  margin-right: 5%;
+}
+
 @media (max-width: 800px) {
   .intro-container {
     display: flex;
@@ -171,6 +205,18 @@
 }
 
 @media (max-width: 600px) {
+  .slider {
+    max-width: 295px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .testimonial-card {
+    max-width: 320px;
+    max-height: 170px;
+    font-size: 12px;
+  }
+
   .bio-card {
     display: flex;
     flex-direction: column;
