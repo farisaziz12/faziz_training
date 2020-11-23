@@ -1,16 +1,20 @@
 import React, { useState, useEffect } from "react";
 import { Transition, animated } from "react-spring/renderprops.cjs";
+import { Zoom } from "react-slideshow-image";
 import Lottie from "react-lottie";
 import Plx from "react-plx";
 import FadeIn from "react-fade-in";
 import LazyLoad from "react-lazyload";
-import downArrow from "../lotties/down-arrow.json";
-import styles from "../styles/Home.module.css";
+import Card from "react-bootstrap/Card";
 import IntroCard from "../components/IntroCard";
+import Bio from "./Bio";
 import { introContent } from "../content/introContent";
 import { defaultOption } from "../functions";
 import { introParallaxData } from "../content/parallaxData";
-import Bio from "./Bio";
+import { testimonials } from "../content/testimonials";
+import downArrow from "../lotties/down-arrow.json";
+import styles from "../styles/Home.module.css";
+import "react-slideshow-image/dist/styles.css";
 
 export default function Intro({ showIntro }) {
   const [showInfo, setShowInfo] = useState(false);
@@ -35,7 +39,27 @@ export default function Intro({ showIntro }) {
             show &&
             ((props) => (
               <animated.div style={props}>
-                <h1 style={{ textAlign: "center" }}>Train with the best</h1>
+                <h1 style={{ textAlign: "center" }}>Train with me</h1>
+                <FadeIn delay={400}>
+                  <Zoom
+                    autoplay={true}
+                    arrows={false}
+                    duration={12000}
+                    scale={0.4}
+                    className={styles.slider}
+                  >
+                    {testimonials.map((testimonial) => (
+                      <Card body>
+                        <div className={styles["testimonial-card"]}>
+                          <p className={styles.quote}>"{testimonial.quote}"</p>
+                          <h6 className={styles["client-name"]}>
+                            -{testimonial.client}
+                          </h6>
+                        </div>
+                      </Card>
+                    ))}
+                  </Zoom>
+                </FadeIn>
                 <Lottie
                   options={defaultOption(downArrow)}
                   height={50}
