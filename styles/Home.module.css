@@ -190,6 +190,13 @@
   font-family: "Montserrat", sans-serif;
 }
 
+.flex-grid {
+  display: inline-flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 28px;
+}
+
 .client-name {
   position: absolute;
   right: 0;
@@ -221,6 +228,7 @@
     display: flex;
     flex-direction: column;
   }
+
   .bio-img {
     height: 350px;
   }
