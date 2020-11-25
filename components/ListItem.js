@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Button from "react-bootstrap/Button";
 import ListItemContent from "./ListItemContent";
-import styles from "../styles/Home.module.css";
 
 export default function ListItem({ content }) {
   const [isOpen, setIsOpen] = useState(false);
