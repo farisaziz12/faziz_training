@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import FadeIn from "react-fade-in";
 import ExpandableList from "../components/ExpandableList";
+import Loader from "../components/Loader";
 import MetaData from "../components/MetaData";
 import NavigationBar from "../components/NavigationBar";
 import { getServices } from "../cms_engine";
@@ -19,18 +20,21 @@ export default function services() {
       <MetaData />
       <NavigationBar />
       <main className={styles.main}>
-        <FadeIn delay={500}>
-          <div className={styles["flex-grid"]}>
-            {servicesArr[0] &&
-              servicesArr.map((serviceCategory) => (
+        {servicesArr[0] ? (
+          <FadeIn delay={500}>
+            <div className={styles["flex-grid"]}>
+              {servicesArr.map((serviceCategory) => (
                 <ExpandableList
                   key={serviceCategory.id}
                   list={serviceCategory.services}
                   listTitle={serviceCategory.name}
                 />
               ))}
-          </div>
-        </FadeIn>
+            </div>
+          </FadeIn>
+        ) : (
+          <Loader />
+        )}
       </main>
 
       <footer className={styles.footer}>
