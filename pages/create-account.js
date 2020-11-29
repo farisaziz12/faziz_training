@@ -5,6 +5,7 @@ import Button from "react-bootstrap/Button";
 import MetaData from "../components/MetaData";
 import NavigationBar from "../components/NavigationBar";
 import { auth } from "../config/auth-config";
+import { signUpAthlete } from "../cms";
 import styles from "../styles/Home.module.css";
 
 export default function createAccount() {
@@ -21,18 +22,7 @@ export default function createAccount() {
     try {
       auth.signUp(email, password, passwordConfirmation).then((user) => {
         if (user.email) {
-          fetch("http://localhost:1337/athletes", {
-            method: "POST",
-            headers: {
-              "Content-type": "application/json",
-            },
-            body: JSON.stringify({
-              first_name: firstName,
-              last_name: lastName,
-              email: user.email,
-              birthdate: birthdate,
-            }),
-          })
+          signUpAthlete(firstName, lastName, user.email, birthdate)
             .then((resp) => resp.json())
             .then((user) => {
               if (user) {
