@@ -1,12 +1,39 @@
 import React, { useEffect, useState } from "react";
 import { useRouter } from "next/router";
+import { auth } from "../config/auth-config";
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
 import Button from "react-bootstrap/Button";
 import styles from "../styles/Home.module.css";
 
 export default function NavigationBar() {
+  const [loggedIn, setLoggedIn] = useState(false);
   const router = useRouter();
+
+  useEffect(async () => {
+    try {
+      const user = await auth.getCurrentUser();
+      if (user) {
+        setLoggedIn(true);
+      } else {
+        setLoggedIn(false);
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  }, []);
+
+  const handleLogout = async () => {
+    try {
+      const resp = await auth.signOut();
+      if (resp.success) {
+        setLoggedIn(false);
+        router.push("/");
+      }
+    } catch (error) {
+      console.error(error);
+    }
+  };
 
   return (
     <div style={{ zIndex: "1" }} className={styles.navbar}>
@@ -18,7 +45,18 @@ export default function NavigationBar() {
             <Nav.Link href="/">Home</Nav.Link>
             <Nav.Link href="/services">Services</Nav.Link>
           </Nav>
-          <Button variant="outline-primary">Login</Button>
+          {loggedIn ? (
+            <Button onClick={handleLogout} variant="outline-secondary">
+              Logout
+            </Button>
+          ) : (
+            <Button
+              onClick={() => router.push("/login")}
+              variant="outline-primary"
+            >
+              Login
+            </Button>
+          )}
         </Navbar.Collapse>
       </Navbar>
     </div>
