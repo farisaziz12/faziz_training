@@ -8,8 +8,8 @@
     "start": "next start"
   },
   "dependencies": {
-    "@farisaziz12/web-core": "https://npm.pkg.github.com/@farisaziz12/web-core",
     "bootstrap": "^4.5.3",
+    "firebase": "^8.1.1",
     "next": "10.0.2",
     "react": "17.0.1",
     "react-bootstrap": "^1.4.0",
