@@ -8,7 +8,7 @@ export default async function handler(req, res) {
   const { senderName, senderEmail, subject, messageBody } = req.body;
 
   try {
-    sendEmail(senderName, senderEmail, subject, messageBody);
+    await sendEmail(senderName, senderEmail, subject, messageBody);
     res.statusCode = 200;
     res.end(JSON.stringify({ status: "Message Sent" }));
   } catch (error) {
