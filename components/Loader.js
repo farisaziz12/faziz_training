@@ -11,7 +11,7 @@ export default function Loader() {
         height={100}
         width={100}
       />
-      <p>Loading...</p>
+      <h1>Loading...</h1>
     </div>
   );
 }
