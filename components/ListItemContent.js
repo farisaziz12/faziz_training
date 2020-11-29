@@ -1,10 +1,12 @@
 import React from "react";
+import { useRouter } from "next/router";
 import Button from "react-bootstrap/Button";
 import { motion } from "framer-motion";
 import styles from "../styles/Home.module.css";
 
 export default function ListItemContent({ content }) {
   const { description, display_price, id } = content;
+  const router = useRouter();
   return (
     <div>
       <motion.div
@@ -18,7 +20,7 @@ export default function ListItemContent({ content }) {
       </motion.div>
       <Button
         className={styles.center}
-        onClick={() => window.alert("Service ID: " + id)}
+        onClick={() => router.push(`/contact-form?id=${id}`)}
       >
         Enquire
       </Button>
