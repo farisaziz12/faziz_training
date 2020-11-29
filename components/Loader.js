@@ -1,5 +1,4 @@
 import React from "react";
-
 import Lottie from "react-lottie";
 import { defaultOption } from "../functions";
 import loadingSpinner from "../lotties/fitness-loading-spinner.json";
