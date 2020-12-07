@@ -19,4 +19,9 @@ export const testimonials = [
       "Faris’ workouts are always fresh, fun and interesting, he is passionate by movement and always available to talk though any problems you might have with the exercises and helping out finding various options to keep you happy during his classes.",
     client: "Emanuela",
   },
+  {
+    quote:
+      "I cannot recommend Faris enough!  He is knowledgeable, patient and has an easy friendly manner as a coach- keeping it fun while also motivating.  He regularly adjusts the workout to my specific issues and needs.",
+    client: "Christina Nyhus Dhillon",
+  },
 ];
