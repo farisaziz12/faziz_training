@@ -204,6 +204,11 @@
   margin-right: 5%;
 }
 
+.button-group {
+  display: inline-flex;
+  gap: 5px;
+}
+
 @media (max-width: 800px) {
   .intro-container {
     display: flex;
