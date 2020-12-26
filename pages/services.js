@@ -12,7 +12,11 @@ export default function services() {
 
   useEffect(async () => {
     const response = await getServices();
-    setServicesArr(...servicesArr, response);
+    const sortedResp = response.sort(
+      (prev, curr) => curr.services.length - prev.services.length
+    );
+
+    setServicesArr(...servicesArr, sortedResp);
   }, []);
 
   return (
