@@ -42,9 +42,9 @@ class Auth {
           .createUserWithEmailAndPassword(email, password)
           .then(() => {
             /*
-                    Sends verification email using firebase
-                    if sign up is successful
-                    */
+              Sends verification email using firebase
+              if sign up is successful
+            */
             this.auth.currentUser.sendEmailVerification();
             resolve(this.auth.currentUser);
           })
@@ -71,15 +71,19 @@ class Auth {
 
   getCurrentUser() {
     return new Promise((resolve, reject) => {
-      this.auth.onAuthStateChanged((currentUser) => {
-        if (currentUser) {
-          //  If user is logged in firebase returns current user data
-          resolve(currentUser);
-        } else {
-          // If no user is signed in currentUser is null
-          reject(new Error("No user logged in"));
-        }
-      });
+      if (this.auth) {
+        this.auth.onAuthStateChanged((currentUser) => {
+          if (currentUser) {
+            //  If user is logged in firebase returns current user data
+            resolve(currentUser);
+          } else {
+            // If no user is signed in currentUser is null
+            reject("No user logged in");
+          }
+        });
+      } else {
+        reject("No user logged in");
+      }
     });
   }
 }
