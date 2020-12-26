@@ -1,15 +1,15 @@
 import React, { useState, useEffect } from "react";
-import { useRouter } from "next/router";
 import { auth } from "../config/auth-config";
+import { resolveButtons } from "../cms";
+import { generateKey } from "../functions";
 import { motion } from "framer-motion";
-import Button from "react-bootstrap/Button";
 import styles from "../styles/Home.module.css";
 
 export default function ListItemContent({ content }) {
-  const [loggedIn, setLoggedIn] = useState(false);
-
   const { description, display_price, id } = content;
-  const router = useRouter();
+
+  const [buttons, setButtons] = useState([]);
+  const [loggedIn, setLoggedIn] = useState(false);
 
   useEffect(async () => {
     try {
@@ -24,6 +24,12 @@ export default function ListItemContent({ content }) {
     }
   }, []);
 
+  useEffect(() => {
+    resolveButtons(id, loggedIn).then((resolvedButtons) =>
+      setButtons(resolvedButtons, ...buttons)
+    );
+  }, [loggedIn]);
+
   return (
     <div>
       <motion.div
@@ -36,19 +42,9 @@ export default function ListItemContent({ content }) {
         <p>{display_price}</p>
       </motion.div>
       <div className={styles["button-group"]}>
-        <Button
-          className={styles.center}
-          onClick={() => router.push(`/contact-form?id=${id}`)}
-        >
-          Enquire
-        </Button>
-        <Button
-          variant="success"
-          className={styles.center}
-          onClick={() => router.push(loggedIn ? `/buy?id=${id}` : "/login")}
-        >
-          Buy
-        </Button>
+        {buttons.map((Button) => (
+          <Button key={generateKey()} />
+        ))}
       </div>
     </div>
   );
