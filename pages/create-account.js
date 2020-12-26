@@ -12,6 +12,7 @@ export default function createAccount() {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
+  const [phoneNo, setPhoneNo] = useState("");
   const [birthdate, setBirthdate] = useState("");
   const [password, setPassword] = useState("");
   const [passwordConfirmation, setPasswordConfirmation] = useState("");
@@ -22,7 +23,7 @@ export default function createAccount() {
     try {
       auth.signUp(email, password, passwordConfirmation).then((user) => {
         if (user.email) {
-          signUpAthlete(firstName, lastName, user.email, birthdate)
+          signUpAthlete(firstName, lastName, user.email, phoneNo, birthdate)
             .then((resp) => resp.json())
             .then((user) => {
               if (user) {
@@ -69,6 +70,15 @@ export default function createAccount() {
               placeholder="example@gmail.com"
               className={styles["p-text"]}
               onChange={(e) => setEmail(e.target.value)}
+            />
+          </Form.Group>
+          <Form.Group controlId="formBasicPhoneNo">
+            <Form.Label>Phone Number</Form.Label>
+            <Form.Control
+              type="tel"
+              placeholder="+41 12 345 6789"
+              className={styles["p-text"]}
+              onChange={(e) => setPhoneNo(e.target.value)}
             />
           </Form.Group>
           <Form.Group controlId="formBasicBirthdate">
