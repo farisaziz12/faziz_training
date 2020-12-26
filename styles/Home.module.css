@@ -209,6 +209,35 @@
   gap: 5px;
 }
 
+.jumbotron {
+  min-height: 270px;
+  width: 100%;
+  color: black;
+}
+
+.quantity {
+  width: 50px;
+  border: 2px solid grey;
+  border-radius: 10px;
+  text-align: center;
+}
+
+.cart-item {
+  display: inline-flex;
+  justify-content: space-between;
+  text-align: center;
+}
+.cart-item h6 {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0;
+}
+
+.checkout {
+  width: 500px;
+  padding: 0 50px 0;
+}
+
 @media (max-width: 800px) {
   .intro-container {
     display: flex;
@@ -217,6 +246,11 @@
 }
 
 @media (max-width: 600px) {
+  .checkout {
+    width: 100%;
+    padding: 0 50px 0;
+  }
+
   .slider {
     max-width: 295px;
     display: block;
