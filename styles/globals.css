@@ -38,9 +38,11 @@ li {
 }
 
 ul {
-  width: 300px;
+  width: 350px;
   display: flex;
   flex-direction: column;
+  justify-content: space-between;
+  gap: 15px;
   background: white;
   padding: 17px;
   border-radius: 25px;
@@ -50,8 +52,13 @@ li {
   background-color: rgba(214, 214, 214, 0.5);
   border-radius: 10px;
   padding: 10px;
-  margin-bottom: 15px;
   overflow: hidden;
   cursor: pointer;
   color: black;
+}
+
+@media (max-width: 600px) {
+  ul {
+    width: 300px;
+  }
 }
