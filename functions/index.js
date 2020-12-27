@@ -1,7 +1,14 @@
-export const defaultOption = (animation) => {
-  return {
-    loop: true,
-    autoplay: true,
-    animationData: animation,
-  };
-};
+export {
+  defaultOption,
+  changeQuantity,
+  generateKey,
+  generateTotal,
+  removeURLParams,
+  getCountryData,
+  generateCartDescription,
+  getToday,
+  getFutureDate,
+  dateParse,
+  minBookDate,
+} from "./utils";
+export { componentResolver } from "./resolve";

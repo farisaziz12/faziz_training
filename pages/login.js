@@ -17,7 +17,7 @@ export default function Login() {
     try {
       const user = await auth.login(email, password);
       if (user.email) {
-        router.push("/");
+        router.back();
       }
     } catch (error) {
       window.alert(error);
@@ -70,13 +70,7 @@ export default function Login() {
       </main>
 
       <footer className={styles.footer}>
-        <a
-          href="https://wod-with-faris.web.app/"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by WOD-WITH-FARIS
-        </a>
+        <p>Powered by WOD-WITH-FARIS</p>
       </footer>
     </div>
   );

@@ -5,12 +5,14 @@ import Button from "react-bootstrap/Button";
 import MetaData from "../components/MetaData";
 import NavigationBar from "../components/NavigationBar";
 import { auth } from "../config/auth-config";
+import { signUpAthlete } from "../cms";
 import styles from "../styles/Home.module.css";
 
 export default function createAccount() {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
+  const [phoneNo, setPhoneNo] = useState("");
   const [birthdate, setBirthdate] = useState("");
   const [password, setPassword] = useState("");
   const [passwordConfirmation, setPasswordConfirmation] = useState("");
@@ -21,18 +23,7 @@ export default function createAccount() {
     try {
       auth.signUp(email, password, passwordConfirmation).then((user) => {
         if (user.email) {
-          fetch("http://localhost:1337/athletes", {
-            method: "POST",
-            headers: {
-              "Content-type": "application/json",
-            },
-            body: JSON.stringify({
-              first_name: firstName,
-              last_name: lastName,
-              email: user.email,
-              birthdate: birthdate,
-            }),
-          })
+          signUpAthlete(firstName, lastName, user.email, phoneNo, birthdate)
             .then((resp) => resp.json())
             .then((user) => {
               if (user) {
@@ -79,6 +70,15 @@ export default function createAccount() {
               placeholder="example@gmail.com"
               className={styles["p-text"]}
               onChange={(e) => setEmail(e.target.value)}
+            />
+          </Form.Group>
+          <Form.Group controlId="formBasicPhoneNo">
+            <Form.Label>Phone Number</Form.Label>
+            <Form.Control
+              type="tel"
+              placeholder="+41 12 345 6789"
+              className={styles["p-text"]}
+              onChange={(e) => setPhoneNo(e.target.value)}
             />
           </Form.Group>
           <Form.Group controlId="formBasicBirthdate">
@@ -131,13 +131,7 @@ export default function createAccount() {
         </Button>
       </main>
       <footer className={styles.footer}>
-        <a
-          href="https://wod-with-faris.web.app/"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by WOD-WITH-FARIS
-        </a>
+        <p>Powered by WOD-WITH-FARIS</p>
       </footer>
     </div>
   );

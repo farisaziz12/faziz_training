@@ -14,4 +14,14 @@ export const testimonials = [
       "Faris is a talented trainer. He does an incredible amount of research in order to offer quality bespoke programs to clients. Also, he doesn't just tell you to do things in a certain way - he explains why. Highly recommend.",
     client: "Jennifer Brant",
   },
+  {
+    quote:
+      "Faris’ workouts are always fresh, fun and interesting, he is passionate by movement and always available to talk though any problems you might have with the exercises and helping out finding various options to keep you happy during his classes.",
+    client: "Emanuela",
+  },
+  {
+    quote:
+      "I cannot recommend Faris enough!  He is knowledgeable, patient and has an easy friendly manner as a coach- keeping it fun while also motivating.  He regularly adjusts the workout to my specific issues and needs.",
+    client: "Christina Nyhus Dhillon",
+  },
 ];

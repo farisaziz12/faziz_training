@@ -1,8 +1,9 @@
-import React, { useEffect, useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import { auth } from "../config/auth-config";
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
+import NavDropdown from "react-bootstrap/NavDropdown";
 import Button from "react-bootstrap/Button";
 import styles from "../styles/Home.module.css";
 
@@ -46,9 +47,16 @@ export default function NavigationBar() {
             <Nav.Link href="/services">Services</Nav.Link>
           </Nav>
           {loggedIn ? (
-            <Button onClick={handleLogout} variant="outline-secondary">
-              Logout
-            </Button>
+            <Nav className="mr-auto" className={styles["nav-container"]}>
+              <NavDropdown title="Account" id="basic-nav-dropdown">
+                <NavDropdown.Item href="/active-services">
+                  Active Services
+                </NavDropdown.Item>
+              </NavDropdown>
+              <Button onClick={handleLogout} variant="outline-secondary">
+                Logout
+              </Button>
+            </Nav>
           ) : (
             <Button
               onClick={() => router.push("/login")}
