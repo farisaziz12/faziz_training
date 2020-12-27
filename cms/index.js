@@ -24,11 +24,27 @@ export const getServiceDetails = async (id) => {
   }
 };
 
-export const resolveButtons = (id, loggedInState) => {
+export const getActiveServiceDetails = async (id) => {
   try {
-    return getServiceDetails(id).then((resp) => {
-      return componentResolver(resp.buttons, loggedInState, id);
-    });
+    const resp = await fetch(url + paths.activeServices + `/${id}`);
+    return resp.json();
+  } catch (error) {
+    console.error(error);
+    return null;
+  }
+};
+
+export const resolveButtons = (id, loggedInState, type, link) => {
+  try {
+    if (type === "service") {
+      return getServiceDetails(id).then((resp) => {
+        return componentResolver(resp.buttons, loggedInState, id, link);
+      });
+    } else if (type === "active-service") {
+      return getActiveServiceDetails(id).then((resp) => {
+        return componentResolver(resp.buttons, loggedInState, id, link);
+      });
+    }
   } catch (error) {
     console.error(error);
     return [];
@@ -187,5 +203,27 @@ export const handleDeleteCart = async (cartId) => {
     return deletedCart;
   } catch (error) {
     console.error(error);
+  }
+};
+
+export const getActiveServices = async () => {
+  try {
+    const user = await getUser();
+    const activeServices = user.active_services.map((activeService) => {
+      const service_id = activeService.service.id;
+      delete activeService.service.id;
+      const spreadActiveService = {
+        ...activeService,
+        ...activeService.service,
+        service_id,
+      };
+      delete spreadActiveService.service;
+      return spreadActiveService;
+    });
+
+    return activeServices;
+  } catch (error) {
+    console.log(error);
+    return [];
   }
 };
