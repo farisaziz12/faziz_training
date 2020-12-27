@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import RevolutCheckout from "@revolut/checkout";
 import { useRouter } from "next/router";
 import FadeIn from "react-fade-in";
@@ -7,12 +7,7 @@ import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import { getCountryData } from "../functions";
 import { post } from "../network";
-import {
-  getUser,
-  getOrder,
-  handleCompletedOrder,
-  handleDeleteCart,
-} from "../cms";
+import { getUser, getOrder, handleCompletedOrder } from "../cms";
 import styles from "../styles/Home.module.css";
 
 export default function Checkout({ orderId, setOrderId }) {
@@ -35,10 +30,10 @@ export default function Checkout({ orderId, setOrderId }) {
 
       window.localStorage.removeItem("orderId");
       await handleCompletedOrder(orderDetails.id);
-
-      router.push("/");
+      router.push("/active-services");
     } catch (error) {
       console.error(error);
+      router.push("/buy");
     }
   };
 
@@ -64,7 +59,9 @@ export default function Checkout({ orderId, setOrderId }) {
         },
         onSuccess() {
           finishOrder(order.id);
-          setTimeout(RC.destroy, 500);
+          setTimeout(() => {
+            RC.destroy();
+          }, 750);
         },
         onError() {
           setOrderId(undefined);
