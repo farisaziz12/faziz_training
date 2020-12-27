@@ -199,7 +199,6 @@ export const activateServices = async (services, userId) => {
 export const handleDeleteCart = async (cartId) => {
   try {
     const deletedCart = await deleteReq(url + paths.carts, cartId);
-    console.log("deleting cart");
     return deletedCart;
   } catch (error) {
     console.error(error);
