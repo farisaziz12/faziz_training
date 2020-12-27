@@ -8,5 +8,7 @@ export {
   generateCartDescription,
   getToday,
   getFutureDate,
+  dateParse,
+  minBookDate,
 } from "./utils";
 export { componentResolver } from "./resolve";
