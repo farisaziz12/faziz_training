@@ -1,7 +1,7 @@
 const testURL = "http://localhost:1337";
 const ProdURL = "https://faziz-training-cms.herokuapp.com";
 
-export const url = testURL;
+export const url = ProdURL;
 
 export const paths = {
   services: "/services",
