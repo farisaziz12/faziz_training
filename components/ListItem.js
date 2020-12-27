@@ -3,7 +3,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import Button from "react-bootstrap/Button";
 import ListItemContent from "./ListItemContent";
 
-export default function ListItem({ content }) {
+export default function ListItem({ content, type }) {
   const [isOpen, setIsOpen] = useState(false);
 
   const toggleOpen = (state) => setIsOpen(state);
@@ -16,8 +16,13 @@ export default function ListItem({ content }) {
         </div>
         <AnimatePresence>
           {isOpen ? (
-            <div onClick={() => toggleOpen(false)}>
-              <ListItemContent key={content.id} content={content} />
+            <div>
+              <ListItemContent
+                type={type}
+                key={content.id}
+                content={content}
+                toggleOpen={toggleOpen}
+              />
             </div>
           ) : (
             <Button
