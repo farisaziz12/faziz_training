@@ -213,6 +213,10 @@
   gap: 5px;
 }
 
+.button-group button {
+  margin-right: 2px;
+}
+
 .jumbotron {
   min-height: 270px;
   width: 100%;
