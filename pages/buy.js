@@ -23,6 +23,9 @@ export default function buy() {
           <Cart serviceId={id} setOrderId={setOrderId} />
         )}
       </main>
+      <footer className={styles.footer}>
+        <p>Powered by WOD-WITH-FARIS</p>
+      </footer>
     </div>
   );
 }

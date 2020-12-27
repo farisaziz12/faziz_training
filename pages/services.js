@@ -32,6 +32,7 @@ export default function services() {
                   key={serviceCategory.id}
                   list={serviceCategory.services}
                   listTitle={serviceCategory.name}
+                  type="service"
                 />
               ))}
             </div>
@@ -42,13 +43,7 @@ export default function services() {
       </main>
 
       <footer className={styles.footer}>
-        <a
-          href="https://wod-with-faris.web.app/"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Powered by WOD-WITH-FARIS
-        </a>
+        <p>Powered by WOD-WITH-FARIS</p>
       </footer>
     </div>
   );
