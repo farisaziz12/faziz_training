@@ -193,8 +193,13 @@
 .flex-grid {
   display: inline-flex;
   flex-wrap: wrap;
+  justify-content: space-between;
   justify-content: center;
   gap: 28px;
+}
+
+.flex-grid ul {
+  margin-right: 15px;
 }
 
 .client-name {
