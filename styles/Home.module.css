@@ -1,3 +1,5 @@
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap");
+
 .container {
   min-height: 100vh;
   padding: 0 0.5rem;
@@ -114,7 +116,173 @@
   height: 1em;
 }
 
+.intro-container {
+  display: inline-flex;
+}
+
+.center {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+}
+
+.profile-img {
+  border: 1px solid white;
+  height: 450px;
+  width: auto;
+}
+
+.bio-img {
+  border: 1px solid white;
+  border-radius: 10px;
+  height: 450px;
+  width: auto;
+}
+
+.bio-card {
+  display: inline-flex;
+  gap: 20px;
+  max-width: 800px;
+  line-height: 25px;
+  background-color: white;
+  color: black;
+  border-radius: 15px;
+  padding: 2vw 2vw 2vw;
+}
+
+.p-text {
+  font-family: "Montserrat", sans-serif;
+}
+
+.navbar {
+  color: black;
+  position: fixed;
+  top: 0;
+  width: 100%;
+}
+
+.center {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.testimonial-card {
+  max-width: 400px;
+  max-height: 200px;
+  text-align: center;
+  color: black;
+  font-size: 15px;
+}
+
+.slider {
+  max-width: 400px;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.quote {
+  margin-bottom: 2%;
+  font-style: italic;
+  font-family: "Montserrat", sans-serif;
+}
+
+.flex-grid {
+  display: inline-flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 28px;
+}
+
+.flex-grid ul {
+  margin-right: 15px;
+}
+
+.client-name {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  margin-right: 5%;
+}
+
+.button-group {
+  display: inline-flex;
+  gap: 5px;
+}
+
+.button-group button {
+  margin-right: 2px;
+}
+
+.jumbotron {
+  min-height: 270px;
+  width: 100%;
+  color: black;
+}
+
+.quantity {
+  width: 50px;
+  border: 2px solid grey;
+  border-radius: 10px;
+  text-align: center;
+}
+
+.cart-item {
+  display: inline-flex;
+  justify-content: space-between;
+  text-align: center;
+}
+.cart-item h6 {
+  display: flex;
+  align-items: center;
+  margin-bottom: 0;
+}
+
+.checkout {
+  width: 500px;
+  padding: 0 50px 0;
+}
+
+@media (max-width: 800px) {
+  .intro-container {
+    display: flex;
+    flex-direction: column;
+  }
+}
+
 @media (max-width: 600px) {
+  .flex-grid ul {
+    margin-right: 0;
+  }
+
+  .checkout {
+    width: 100%;
+    padding: 0 50px 0;
+  }
+
+  .slider {
+    max-width: 295px;
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+  }
+  .testimonial-card {
+    max-width: 320px;
+    max-height: 170px;
+    font-size: 12px;
+  }
+
+  .bio-card {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .bio-img {
+    height: 350px;
+  }
   .grid {
     width: 100%;
     flex-direction: column;
