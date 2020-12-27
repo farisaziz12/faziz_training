@@ -152,6 +152,10 @@
   padding: 2vw 2vw 2vw;
 }
 
+.bio-card p {
+  margin-left: 5px;
+}
+
 .p-text {
   font-family: "Montserrat", sans-serif;
 }
