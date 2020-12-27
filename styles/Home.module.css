@@ -152,13 +152,10 @@
   padding: 2vw 2vw 2vw;
 }
 
-<<<<<<< HEAD
-=======
 .bio-card p {
   margin-left: 5px;
 }
 
->>>>>>> fd1202c... fix(global-styles): add bio card p margin left
 .p-text {
   font-family: "Montserrat", sans-serif;
 }
