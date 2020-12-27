@@ -23,7 +23,7 @@ export default function Cart({ serviceId, setOrderId }) {
         const service = await getServiceDetails(serviceId);
         const newItem = { service, context: "add" };
         const updatedCart = await updateCart(newItem);
-        console.log(service, updatedCart);
+
         setCart(updatedCart);
         setLoading(false);
         if (serviceId) {
