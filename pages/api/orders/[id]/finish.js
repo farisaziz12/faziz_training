@@ -8,7 +8,7 @@ const handleFinishOrder = async (req, res) => {
     const orderData = await order.json();
 
     const response = await fetch(
-      `https://sandbox-merchant.revolut.com/api/1.0/orders/${orderData.data.payment.id}`,
+      `https://merchant.revolut.com/api/1.0/orders/${orderData.data.payment.id}`,
       {
         headers: {
           Authorization: `Bearer ${process.env.NEXT_PUBLIC_REVOLUT_API_KEY}`,

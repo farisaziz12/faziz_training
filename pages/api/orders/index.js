@@ -13,7 +13,7 @@ const calculateTotal = (cart) => {
 const createNewOrder = async (userId, cartData, total, payload, res) => {
   try {
     const response = await fetch(
-      `https://sandbox-merchant.revolut.com/api/1.0/orders`,
+      `https://merchant.revolut.com/api/1.0/orders`,
       {
         method: "POST",
         headers: {
@@ -81,7 +81,7 @@ const handleCreateOrder = async (req, res) => {
 
       if (prevAmount === total.amount && prevDesc === total.description) {
         const response = await fetch(
-          `https://sandbox-merchant.revolut.com/api/1.0/orders`,
+          `https://merchant.revolut.com/api/1.0/orders`,
           {
             method: "POST",
             headers: {

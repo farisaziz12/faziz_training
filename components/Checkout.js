@@ -43,7 +43,7 @@ export default function Checkout({ orderId, setOrderId }) {
     try {
       const order = await getOrder(orderId);
       const { public_id: token } = order.data.payment;
-      const RC = await RevolutCheckout(token, "sandbox");
+      const RC = await RevolutCheckout(token, "prod");
 
       RC.payWithPopup({
         name: fullName,
