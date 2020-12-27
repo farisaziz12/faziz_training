@@ -52,3 +52,11 @@ export const getToday = () => {
 export const getFutureDate = (days) => {
   return Date.today().addDays(days);
 };
+
+export const dateParse = (date) => {
+  return Date.parse(date).toString("d-MMM-yyyy");
+};
+
+export const minBookDate = () => {
+  return getToday().add(1).day().toString("yyyy-M-d");
+};
