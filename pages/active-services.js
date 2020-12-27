@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from "react";
 import FadeIn from "react-fade-in";
 import { motion, AnimateSharedLayout } from "framer-motion";
+import Button from "react-bootstrap/Button";
 import Loader from "../components/Loader";
 import { useRouter } from "next/router";
 import ListItem from "../components/ListItem";
@@ -11,7 +12,7 @@ import { getActiveServices } from "../cms";
 import styles from "../styles/Home.module.css";
 
 export default function activeServices() {
-  const [loggedIn, setLoggedIn] = useState(false);
+  const [loading, setLoading] = useState(true);
   const [activeServices, setActiveServices] = useState([]);
   const router = useRouter();
 
@@ -19,8 +20,8 @@ export default function activeServices() {
     try {
       const user = await auth.getCurrentUser();
       if (user) {
-        setLoggedIn(true);
         setActiveServices(await getActiveServices());
+        setLoading(false);
       } else {
         setLoggedIn(false);
         router.push("/login");
@@ -31,13 +32,12 @@ export default function activeServices() {
     }
   }, []);
 
-  return (
-    <div className={styles.container}>
-      <MetaData />
-      <NavigationBar />
-      <main className={styles.main}>
-        <h1>Active Services</h1>
-        {activeServices[0] ? (
+  const renderMain = () => {
+    if (loading) {
+      return <Loader />;
+    } else {
+      if (activeServices[0]) {
+        return (
           <FadeIn delay={500}>
             <div className={styles["flex-grid"]}>
               {activeServices.map((activeService) => (
@@ -53,9 +53,24 @@ export default function activeServices() {
               ))}
             </div>
           </FadeIn>
-        ) : (
-          <Loader />
-        )}
+        );
+      } else {
+        return (
+          <Button className={styles.center} href="/services" variant="primary">
+            Browse Services
+          </Button>
+        );
+      }
+    }
+  };
+
+  return (
+    <div className={styles.container}>
+      <MetaData />
+      <NavigationBar />
+      <main className={styles.main}>
+        <h1>Active Services</h1>
+        {renderMain()}
       </main>
 
       <footer className={styles.footer}>
