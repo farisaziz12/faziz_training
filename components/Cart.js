@@ -77,19 +77,20 @@ export default function Cart({ serviceId, setOrderId }) {
     <div>
       <FadeIn delay={650}>
         <h1 style={{ textAlign: "center" }}>
-          Cart {cart?.cart_items[0] ? "" : "Empty"}
+          Cart {cart?.cart_items && cart.cart_items[0] ? "" : "Empty"}
         </h1>
 
         <Jumbotron
           fluid
-          style={!cart?.cart_items[0] ? { background: "none" } : {}}
+          style={!cart?.cart_items ? { background: "none" } : {}}
         >
           <Container className={styles.jumbotron}>
-            {cart?.cart_items[0] ? (
+            {cart?.cart_items && cart.cart_items[0] ? (
               <>
                 <h1>
                   Total:{" "}
                   {cart?.cart_items &&
+                    cart.cart_items[0] &&
                     !loading &&
                     generateTotal(cart.cart_items) + " CHF"}
                 </h1>
