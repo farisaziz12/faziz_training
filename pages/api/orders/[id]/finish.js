@@ -37,7 +37,12 @@ const handleFinishOrder = async (req, res) => {
       }),
     });
 
-    res.json({ id: orderData.id, isCompleted, isFailed });
+    res.json({
+      id: orderData.id,
+      isCompleted,
+      isFailed,
+      cartId: orderData.data.cart.id,
+    });
   } catch (error) {
     console.error(error);
     res.json({
