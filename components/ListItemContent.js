@@ -1,44 +1,17 @@
-import React, { useState, useEffect } from "react";
-import { auth } from "../config/auth-config";
-import { resolveButtons } from "../cms";
+import React from "react";
 import { generateKey } from "../functions";
 import { motion } from "framer-motion";
 import { dateParse } from "../functions";
 import styles from "../styles/Home.module.css";
 
-export default function ListItemContent({ content, type, toggleOpen }) {
+function ListItemContent({ content, type, toggleOpen, buttons }) {
   const {
     description,
     display_price,
-    id,
-    service_id,
     activated_date,
     expiration_date,
-    link,
     amount_left,
   } = content;
-
-  const [buttons, setButtons] = useState([]);
-  const [loggedIn, setLoggedIn] = useState(false);
-
-  useEffect(async () => {
-    try {
-      const user = await auth.getCurrentUser();
-      if (user) {
-        setLoggedIn(true);
-      } else {
-        setLoggedIn(false);
-      }
-    } catch (error) {
-      console.error(error);
-    }
-  }, []);
-
-  useEffect(() => {
-    resolveButtons(id, loggedIn, type, link).then((resolvedButtons) =>
-      setButtons(resolvedButtons, ...buttons)
-    );
-  }, [loggedIn]);
 
   const renderDetails = () => {
     if (type === "service") {
@@ -85,3 +58,11 @@ export default function ListItemContent({ content, type, toggleOpen }) {
     </div>
   );
 }
+
+export async function getServerSideProps(context) {
+  return {
+    props: { initialButtons: [] }, // will be passed to the page component as props
+  };
+}
+
+export default ListItemContent;
