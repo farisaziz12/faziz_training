@@ -50,6 +50,7 @@ ul {
 }
 
 li {
+  max-height: 250px;
   background-color: rgba(214, 214, 214, 0.5);
   border-radius: 10px;
   padding: 10px;
