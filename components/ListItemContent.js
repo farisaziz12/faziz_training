@@ -4,7 +4,12 @@ import { motion } from "framer-motion";
 import { dateParse, renderEmptyDiv } from "../functions";
 import styles from "../styles/Home.module.css";
 
-function ListItemContent({ content, type, toggleOpen, buttons }) {
+export default function ListItemContent({
+  content,
+  type,
+  toggleOpen,
+  buttons,
+}) {
   const {
     description,
     display_price,
@@ -58,11 +63,3 @@ function ListItemContent({ content, type, toggleOpen, buttons }) {
     </div>
   );
 }
-
-export async function getServerSideProps(context) {
-  return {
-    props: { initialButtons: [] }, // will be passed to the page component as props
-  };
-}
-
-export default ListItemContent;
