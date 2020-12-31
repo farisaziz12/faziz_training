@@ -51,6 +51,26 @@ export const resolveButtons = (id, loggedInState, type, link) => {
   }
 };
 
+export const getNavItems = async () => {
+  try {
+    const navbar = await get(url + paths.navbar);
+    return navbar.nav_items;
+  } catch (error) {
+    console.log(error);
+    return [];
+  }
+};
+
+export const resolveNavItems = async (loggedInState) => {
+  try {
+    const navItems = await getNavItems();
+    return componentResolver(navItems, loggedInState);
+  } catch (error) {
+    console.log(error);
+    return [];
+  }
+};
+
 export const signUpAthlete = (
   firstName,
   lastName,

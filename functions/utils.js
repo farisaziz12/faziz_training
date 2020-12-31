@@ -60,3 +60,7 @@ export const dateParse = (date) => {
 export const minBookDate = () => {
   return getToday().add(1).day().toString("yyyy-M-d");
 };
+
+export const renderEmptyDiv = () => {
+  return <div style={{ display: "none" }}></div>;
+};

@@ -1,14 +1,17 @@
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
-import { auth } from "../config/auth-config";
+import { auth } from "../../config/auth-config";
+import { resolveNavItems } from "../../cms";
+import { generateKey } from "../../functions";
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import Button from "react-bootstrap/Button";
-import styles from "../styles/Home.module.css";
+import styles from "../../styles/Home.module.css";
 
 export default function NavigationBar() {
   const [loggedIn, setLoggedIn] = useState(false);
+  const [navItems, setNavItems] = useState([]);
   const router = useRouter();
 
   useEffect(async () => {
@@ -23,6 +26,12 @@ export default function NavigationBar() {
       console.error(error);
     }
   }, []);
+
+  useEffect(() => {
+    resolveNavItems(loggedIn).then((resolvedNavItems) =>
+      setNavItems(resolvedNavItems, ...navItems)
+    );
+  }, [loggedIn]);
 
   const handleLogout = async () => {
     try {
@@ -44,7 +53,9 @@ export default function NavigationBar() {
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="mr-auto">
             <Nav.Link href="/">Home</Nav.Link>
-            <Nav.Link href="/services">Services</Nav.Link>
+            {navItems.map((NavItem) => (
+              <NavItem key={generateKey()} />
+            ))}
           </Nav>
           {loggedIn ? (
             <Nav className="mr-auto" className={styles["nav-container"]}>
