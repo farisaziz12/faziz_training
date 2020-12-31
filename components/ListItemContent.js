@@ -1,7 +1,7 @@
 import React from "react";
 import { generateKey } from "../functions";
 import { motion } from "framer-motion";
-import { dateParse } from "../functions";
+import { dateParse, renderEmptyDiv } from "../functions";
 import styles from "../styles/Home.module.css";
 
 function ListItemContent({ content, type, toggleOpen, buttons }) {
@@ -35,7 +35,7 @@ function ListItemContent({ content, type, toggleOpen, buttons }) {
         </div>
       );
     } else {
-      return <div style={{ display: "none" }}></div>;
+      renderEmptyDiv();
     }
   };
 
