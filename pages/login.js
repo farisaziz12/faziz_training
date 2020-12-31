@@ -3,7 +3,7 @@ import { useRouter } from "next/router";
 import Form from "react-bootstrap/Form";
 import Button from "react-bootstrap/Button";
 import MetaData from "../components/MetaData";
-import NavigationBar from "../components/NavigationBar";
+import NavigationBar from "../components/Navigation/NavigationBar";
 import { auth } from "../config/auth-config";
 import styles from "../styles/Home.module.css";
 

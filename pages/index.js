@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import Intro from "../components/Intro";
 import MetaData from "../components/MetaData";
-import NavigationBar from "../components/NavigationBar";
+import NavigationBar from "../components/Navigation/NavigationBar";
 import styles from "../styles/Home.module.css";
 
 export default function Home() {
