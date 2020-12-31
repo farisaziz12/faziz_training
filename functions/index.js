@@ -10,5 +10,6 @@ export {
   getFutureDate,
   dateParse,
   minBookDate,
+  renderEmptyDiv,
 } from "./utils";
 export { componentResolver } from "./resolve";
