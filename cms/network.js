@@ -1,6 +1,6 @@
 const testURL = "http://localhost:1337";
 const prodURL = "https://faziz-training-cms.herokuapp.com";
-export const url = prodURL;
+export const url = testURL;
 
 export const paths = {
   services: "/services",
@@ -11,4 +11,7 @@ export const paths = {
   orders: "/orders",
   activeServices: "/active-services",
   navbar: "/navbar",
+  locations: "/locations",
+  coaches: "/coaches",
+  classes: "/classes",
 };
