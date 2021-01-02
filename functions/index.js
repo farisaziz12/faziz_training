@@ -11,5 +11,12 @@ export {
   dateParse,
   minBookDate,
   renderEmptyDiv,
+  getDayName,
+  dayAndDate,
+  generateClassList,
+  generateClassName,
+  getDuration,
+  handleDisplayCapacity,
+  generateDateRangeQuery,
 } from "./utils";
 export { componentResolver } from "./resolve";
