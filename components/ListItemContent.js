@@ -1,7 +1,12 @@
 import React from "react";
 import { generateKey } from "../functions";
 import { motion } from "framer-motion";
-import { dateParse, renderEmptyDiv } from "../functions";
+import {
+  dateParse,
+  renderEmptyDiv,
+  getDuration,
+  handleDisplayCapacity,
+} from "../functions";
 import styles from "../styles/Home.module.css";
 
 export default function ListItemContent({
@@ -37,6 +42,28 @@ export default function ListItemContent({
             <strong>Remaining: </strong>
             {amount_left}
           </p>
+        </div>
+      );
+    } else if (type === "classes") {
+      const {
+        start_time,
+        end_time,
+        location,
+        coach,
+        capacity,
+        athletes,
+      } = content.class;
+      return (
+        <div>
+          <strong>Coach: </strong>
+          <p className={styles["p-text"]}>{coach?.name}</p>
+          <strong>Location: </strong>
+          <p className={styles["p-text"]}>{location?.name}</p>
+          <p className={styles["p-text"]}>
+            <strong>Duration: </strong>
+            {getDuration(start_time, end_time)}
+          </p>
+          {handleDisplayCapacity(athletes.length, capacity)}
         </div>
       );
     } else {
