@@ -11,4 +11,7 @@ export const paths = {
   orders: "/orders",
   activeServices: "/active-services",
   navbar: "/navbar",
+  locations: "/locations",
+  coaches: "/coaches",
+  classes: "/classes",
 };

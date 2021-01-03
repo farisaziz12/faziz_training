@@ -12,6 +12,7 @@ import styles from "../../styles/Home.module.css";
 export default function NavigationBar() {
   const [loggedIn, setLoggedIn] = useState(false);
   const [navItems, setNavItems] = useState([]);
+  const [navDropdownItems, setNavDropdownItems] = useState([]);
   const router = useRouter();
 
   useEffect(async () => {
@@ -28,8 +29,11 @@ export default function NavigationBar() {
   }, []);
 
   useEffect(() => {
-    resolveNavItems(loggedIn).then((resolvedNavItems) =>
+    resolveNavItems(loggedIn, "nav-items").then((resolvedNavItems) =>
       setNavItems(resolvedNavItems, ...navItems)
+    );
+    resolveNavItems(loggedIn, "nav-dropdown-items").then((resolvedNavItems) =>
+      setNavDropdownItems(resolvedNavItems, ...navItems)
     );
   }, [loggedIn]);
 
@@ -57,12 +61,18 @@ export default function NavigationBar() {
               <NavItem key={generateKey()} />
             ))}
           </Nav>
-          {loggedIn ? (
+          {loggedIn && navDropdownItems[0] ? (
             <Nav className="mr-auto" className={styles["nav-container"]}>
               <NavDropdown title="Account" id="basic-nav-dropdown">
-                <NavDropdown.Item href="/active-services">
-                  Active Services
-                </NavDropdown.Item>
+                {navDropdownItems.map((NavItem) => {
+                  return (
+                    <div key={generateKey()}>
+                      <NavItem />
+                      {navDropdownItems.indexOf(NavItem) !==
+                        navDropdownItems.length - 1 && <NavDropdown.Divider />}
+                    </div>
+                  );
+                })}
               </NavDropdown>
               <Button onClick={handleLogout} variant="outline-secondary">
                 Logout
