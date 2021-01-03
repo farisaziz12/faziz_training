@@ -61,7 +61,7 @@ export default function NavigationBar() {
               <NavItem key={generateKey()} />
             ))}
           </Nav>
-          {loggedIn ? (
+          {loggedIn && navDropdownItems[0] ? (
             <Nav className="mr-auto" className={styles["nav-container"]}>
               <NavDropdown title="Account" id="basic-nav-dropdown">
                 {navDropdownItems.map((NavItem) => {
