@@ -2,14 +2,15 @@ import React, { useState, useEffect } from "react";
 import { motion, AnimatePresence } from "framer-motion";
 import Button from "react-bootstrap/Button";
 import { auth } from "../config/auth-config";
-import { resolveButtons } from "../cms";
+import { resolveButtons, getClassDetails } from "../cms";
 import { generateClassName, generateKey } from "../functions";
 import ListItemContent from "./ListItemContent";
 
-export default function ListItem({ content, type }) {
+export default function ListItem({ content: listContent, type }) {
   const [isOpen, setIsOpen] = useState(false);
   const [loggedIn, setLoggedIn] = useState(false);
   const [buttons, setButtons] = useState([]);
+  const [content, setContent] = useState(listContent);
 
   const { link } = content;
 
@@ -28,12 +29,23 @@ export default function ListItem({ content, type }) {
     }
   }, []);
 
+  const updateComponent = async (update) => {
+    if (update === "book-class" || update === "cancel-class") {
+      const classInfo = await getClassDetails(content.class.id);
+      setContent({ class: classInfo });
+    }
+  };
+
   useEffect(() => {
     const id = type === "classes" ? content.class.id : content.id;
 
-    resolveButtons(id, loggedIn, type, link).then((resolvedButtons) =>
-      setButtons(resolvedButtons, ...buttons)
-    );
+    resolveButtons(
+      id,
+      loggedIn,
+      type,
+      link,
+      updateComponent
+    ).then((resolvedButtons) => setButtons(resolvedButtons, ...buttons));
   }, [loggedIn]);
 
   const renderName = (data) => {
