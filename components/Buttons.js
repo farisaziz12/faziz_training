@@ -11,6 +11,7 @@ import {
   checkBooking,
   handleClass,
   checkClassPasses,
+  checkIfClassFull,
 } from "../cms";
 import styles from "../styles/Home.module.css";
 
@@ -182,9 +183,11 @@ export const PTBookButton = (loggedInState, id, link) => {
   );
 };
 
-export const ClassBookButton = (loggedInState, id, link) => {
+export const ClassBookButton = (loggedInState, id, link, updateComponent) => {
   const [isBooked, setIsBooked] = useState(false);
   const [canBook, setCanBook] = useState(false);
+  const [isFull, setIsFull] = useState(false);
+  const [loading, setLoading] = useState(true);
   const router = useRouter();
 
   useEffect(() => {
@@ -192,10 +195,15 @@ export const ClassBookButton = (loggedInState, id, link) => {
     checkClassPasses().then((passes) => setCanBook(passes.available));
   }, [loggedInState]);
 
+  useEffect(() => {
+    setTimeout(() => setLoading(false), 150);
+  }, []);
+
   const handleBookClass = () => {
     handleClass(id, "book").then((bookingResp) => {
       if (bookingResp) {
         setIsBooked(true);
+        updateComponent("book-class");
       }
     });
   };
@@ -204,12 +212,14 @@ export const ClassBookButton = (loggedInState, id, link) => {
     handleClass(id, "cancel").then((cancellationResp) => {
       if (cancellationResp) {
         setIsBooked(false);
+        checkIfClassFull(id).then(setIsFull);
+        updateComponent("cancel-class");
       }
     });
   };
 
   const renderButton = () => {
-    if (isBooked) {
+    if (!loading && isBooked) {
       return (
         <Button
           variant="danger"
@@ -219,7 +229,7 @@ export const ClassBookButton = (loggedInState, id, link) => {
           Cancel Booking
         </Button>
       );
-    } else if (!isBooked && canBook) {
+    } else if (!loading && !isBooked && canBook && !isFull) {
       return (
         <Button
           variant="success"
@@ -229,7 +239,13 @@ export const ClassBookButton = (loggedInState, id, link) => {
           Book Class
         </Button>
       );
-    } else if (!isBooked && !canBook) {
+    } else if (!loading && isFull) {
+      return (
+        <Button variant="secondary" className={styles.center} disabled={true}>
+          Class Full
+        </Button>
+      );
+    } else if (!loading && !isBooked && !canBook) {
       return (
         <Button
           variant="warning"
