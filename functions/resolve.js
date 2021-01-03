@@ -38,7 +38,7 @@ export const componentResolver = (components, ...args) => {
       case componentTypes.navItem:
         const { name, route, authenticated, hide_for_no_auth } = component;
         resolvedComponents.push(() =>
-          NavItem(...args, name, route, authenticated, hide_for_no_auth)
+          NavItem(name, route, authenticated, hide_for_no_auth, ...args)
         );
         break;
 

@@ -275,17 +275,27 @@ export const resolveButtons = (
 export const getNavItems = async () => {
   try {
     const navbar = await get(url + paths.navbar);
-    return navbar.nav_items;
+
+    return navbar;
   } catch (error) {
     console.log(error);
     return [];
   }
 };
 
-export const resolveNavItems = async (loggedInState) => {
+export const resolveNavItems = async (loggedInState, type) => {
   try {
-    const navItems = await getNavItems();
-    return componentResolver(navItems, loggedInState);
+    if (type === "nav-items") {
+      const navItems = await getNavItems();
+      return componentResolver(navItems.nav_items, loggedInState, type);
+    } else if (type === "nav-dropdown-items") {
+      const navItems = await getNavItems();
+      return componentResolver(
+        navItems.nav_dropdown_items,
+        loggedInState,
+        type
+      );
+    }
   } catch (error) {
     console.log(error);
     return [];
