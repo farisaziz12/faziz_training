@@ -53,6 +53,7 @@ export default function ListItemContent({
         capacity,
         athletes,
       } = content.class;
+
       return (
         <div>
           <strong>Coach: </strong>
