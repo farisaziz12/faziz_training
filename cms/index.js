@@ -48,6 +48,7 @@ export const checkBooking = async (classId) => {
 
 export const checkClassPasses = async () => {
   const athlete = await getUser();
+
   const passes = athlete.active_services.filter(
     (activeService) =>
       activeService.service.type === "class" && activeService.amount_left > 0
@@ -73,6 +74,14 @@ export const checkClassPasses = async () => {
   } else {
     return { available: false, activeServiceId: null, amount_left: 0 };
   }
+};
+
+export const checkIfClassFull = async (classId) => {
+  const classInfo = await getClassDetails(classId);
+  const { athletes, capacity } = classInfo;
+  const isFull = athletes.length >= capacity ? true : false;
+
+  return isFull;
 };
 
 export const handleClass = async (classId, command) => {
@@ -208,19 +217,43 @@ export const getActiveServices = async () => {
 
 // COMPONENT RESOLVING
 
-export const resolveButtons = (id, loggedInState, type, link) => {
+export const resolveButtons = (
+  id,
+  loggedInState,
+  type,
+  link,
+  updateComponent
+) => {
   try {
     if (type === "service") {
       return getServiceDetails(id).then((resp) => {
-        return componentResolver(resp.buttons, loggedInState, id, link);
+        return componentResolver(
+          resp.buttons,
+          loggedInState,
+          id,
+          link,
+          updateComponent
+        );
       });
     } else if (type === "active-service") {
       return getActiveServiceDetails(id).then((resp) => {
-        return componentResolver(resp.buttons, loggedInState, id, link);
+        return componentResolver(
+          resp.buttons,
+          loggedInState,
+          id,
+          link,
+          updateComponent
+        );
       });
     } else if (type === "classes") {
       return getClassDetails(id).then((resp) => {
-        return componentResolver(resp.buttons, loggedInState, id, link);
+        return componentResolver(
+          resp.buttons,
+          loggedInState,
+          id,
+          link,
+          updateComponent
+        );
       });
     } else {
       return new Promise((resolve) => resolve([]));
