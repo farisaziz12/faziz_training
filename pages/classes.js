@@ -16,14 +16,17 @@ const initialDateRange = {
 export default function Classes() {
   const [classes, setClasses] = useState([]);
   const [dateRange, setDateRange] = useState(initialDateRange);
+  const [loading, setLoading] = useState(true);
 
   useEffect(async () => {
     try {
       const classesData = await getClasses(dateRange.start, dateRange.end);
       const classesArr = generateClassList(classesData);
       setClasses(classesArr);
+      setLoading(false);
     } catch (error) {
       console.error(error);
+      setLoading(false);
     }
   }, [dateRange]);
 
@@ -45,8 +48,10 @@ export default function Classes() {
               ))}
             </div>
           </FadeIn>
-        ) : (
+        ) : loading ? (
           <Loader />
+        ) : (
+          <h1>None</h1>
         )}
       </main>
 

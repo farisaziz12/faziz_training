@@ -61,19 +61,23 @@ export default function NavigationBar() {
               <NavItem key={generateKey()} />
             ))}
           </Nav>
-          {loggedIn && navDropdownItems[0] ? (
+          {loggedIn ? (
             <Nav className="mr-auto" className={styles["nav-container"]}>
-              <NavDropdown title="Account" id="basic-nav-dropdown">
-                {navDropdownItems.map((NavItem) => {
-                  return (
-                    <div key={generateKey()}>
-                      <NavItem />
-                      {navDropdownItems.indexOf(NavItem) !==
-                        navDropdownItems.length - 1 && <NavDropdown.Divider />}
-                    </div>
-                  );
-                })}
-              </NavDropdown>
+              {navDropdownItems[0] && (
+                <NavDropdown title="Account" id="basic-nav-dropdown">
+                  {navDropdownItems.map((NavItem) => {
+                    return (
+                      <div key={generateKey()}>
+                        <NavItem />
+                        {navDropdownItems.indexOf(NavItem) !==
+                          navDropdownItems.length - 1 && (
+                          <NavDropdown.Divider />
+                        )}
+                      </div>
+                    );
+                  })}
+                </NavDropdown>
+              )}
               <Button onClick={handleLogout} variant="outline-secondary">
                 Logout
               </Button>
