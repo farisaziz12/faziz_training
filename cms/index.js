@@ -5,6 +5,7 @@ import {
   getToday,
   getFutureDate,
   generateDateRangeQuery,
+  generateClassList,
 } from "../functions";
 import { auth } from "../config/auth-config";
 import { url, paths } from "./network";
@@ -118,6 +119,13 @@ export const handleClass = async (classId, command) => {
     console.error(error);
     return null;
   }
+};
+
+export const getUpcomingAthleteClasses = (classes, userId) => {
+  const filteredClasses = classes.filter((classInfo) =>
+    classInfo.athletes.map((athlete) => athlete.id).includes(userId)
+  );
+  return generateClassList(filteredClasses);
 };
 
 // SERVICES
@@ -302,11 +310,16 @@ export const signUpAthlete = (
   });
 };
 
-export const getUser = async () => {
+export const getUser = async (id) => {
   try {
-    const user = await auth.getCurrentUser();
-    const userInfo = await get(url + paths.getAthleteWithEmail + user.email);
-    return userInfo;
+    if (id) {
+      const userInfo = await get(url + paths.athletes + `/${id}`);
+      return userInfo;
+    } else {
+      const user = await auth.getCurrentUser();
+      const userInfo = await get(url + paths.getAthleteWithEmail + user.email);
+      return userInfo;
+    }
   } catch (error) {
     console.log(error);
   }
