@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import { useRouter } from "next/router";
 import MetaData from "../components/MetaData";
-import NavigationBar from "../components/NavigationBar";
+import NavigationBar from "../components/Navigation/NavigationBar";
 import styles from "../styles/Home.module.css";
 import Cart from "../components/Cart";
 import Checkout from "../components/Checkout";

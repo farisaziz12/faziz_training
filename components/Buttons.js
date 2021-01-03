@@ -6,7 +6,13 @@ import Alert from "react-bootstrap/Alert";
 import { useRouter } from "next/router";
 import { post } from "../network";
 import { minBookDate } from "../functions";
-import { getActiveServiceDetails } from "../cms";
+import {
+  getActiveServiceDetails,
+  checkBooking,
+  handleClass,
+  checkClassPasses,
+  checkIfClassFull,
+} from "../cms";
 import styles from "../styles/Home.module.css";
 
 export const EnquireButton = (loggedInState, id) => {
@@ -44,7 +50,7 @@ export const LinkButton = (loggedInState, id, link) => {
   );
 };
 
-export const BookButton = (loggedInState, id, link) => {
+export const PTBookButton = (loggedInState, id, link) => {
   const [show, setShow] = useState(false);
   const [date, setDate] = useState("");
   const [time, setTime] = useState("");
@@ -175,4 +181,88 @@ export const BookButton = (loggedInState, id, link) => {
       </Modal>
     </>
   );
+};
+
+export const ClassBookButton = (loggedInState, id, link, updateComponent) => {
+  const [isBooked, setIsBooked] = useState(false);
+  const [canBook, setCanBook] = useState(false);
+  const [isFull, setIsFull] = useState(false);
+  const [loading, setLoading] = useState(true);
+  const router = useRouter();
+
+  useEffect(() => {
+    checkBooking(id).then(setIsBooked);
+    checkClassPasses().then((passes) => setCanBook(passes.available));
+  }, [loggedInState]);
+
+  useEffect(() => {
+    setTimeout(() => setLoading(false), 150);
+  }, []);
+
+  const handleBookClass = () => {
+    handleClass(id, "book").then((bookingResp) => {
+      if (bookingResp) {
+        setIsBooked(true);
+        updateComponent("book-class");
+      }
+    });
+  };
+
+  const handleCancelClass = () => {
+    handleClass(id, "cancel").then((cancellationResp) => {
+      if (cancellationResp) {
+        setIsBooked(false);
+        checkIfClassFull(id).then(setIsFull);
+        updateComponent("cancel-class");
+      }
+    });
+  };
+
+  const renderButton = () => {
+    if (!loading && isBooked) {
+      return (
+        <Button
+          variant="danger"
+          className={styles.center}
+          onClick={handleCancelClass}
+        >
+          Cancel Booking
+        </Button>
+      );
+    } else if (!loading && !isBooked && canBook && !isFull) {
+      return (
+        <Button
+          variant="success"
+          className={styles.center}
+          onClick={handleBookClass}
+        >
+          Book Class
+        </Button>
+      );
+    } else if (!loading && isFull) {
+      return (
+        <Button variant="secondary" className={styles.center} disabled={true}>
+          Class Full
+        </Button>
+      );
+    } else if (!loading && !isBooked && !canBook) {
+      return (
+        <Button
+          variant="warning"
+          className={styles.center}
+          onClick={() => router.push("/services")}
+        >
+          Buy Class Passes
+        </Button>
+      );
+    } else {
+      return (
+        <Button variant="secondary" className={styles.center} disabled={true}>
+          Loading...
+        </Button>
+      );
+    }
+  };
+
+  return <>{renderButton()}</>;
 };

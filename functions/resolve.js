@@ -2,14 +2,18 @@ import {
   BuyButton,
   EnquireButton,
   LinkButton,
-  BookButton,
+  PTBookButton,
+  ClassBookButton,
 } from "../components/Buttons";
+import NavItem from "../components/Navigation/NavItem";
 
 const componentTypes = {
   buy: "buy",
   enquire: "enquire",
   link: "link",
-  book: "book",
+  bookPT: "book_pt",
+  bookClass: "book_class",
+  navItem: "nav-item",
 };
 
 export const componentResolver = (components, ...args) => {
@@ -25,8 +29,17 @@ export const componentResolver = (components, ...args) => {
       case componentTypes.link:
         resolvedComponents.push(() => LinkButton(...args));
         break;
-      case componentTypes.book:
-        resolvedComponents.push(() => BookButton(...args));
+      case componentTypes.bookPT:
+        resolvedComponents.push(() => PTBookButton(...args));
+        break;
+      case componentTypes.bookClass:
+        resolvedComponents.push(() => ClassBookButton(...args));
+        break;
+      case componentTypes.navItem:
+        const { name, route, authenticated, hide_for_no_auth } = component;
+        resolvedComponents.push(() =>
+          NavItem(name, route, authenticated, hide_for_no_auth, ...args)
+        );
         break;
 
       default:

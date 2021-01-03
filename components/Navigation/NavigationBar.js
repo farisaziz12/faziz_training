@@ -1,14 +1,18 @@
 import React, { useState, useEffect } from "react";
 import { useRouter } from "next/router";
-import { auth } from "../config/auth-config";
+import { auth } from "../../config/auth-config";
+import { resolveNavItems } from "../../cms";
+import { generateKey } from "../../functions";
 import Navbar from "react-bootstrap/Navbar";
 import Nav from "react-bootstrap/Nav";
 import NavDropdown from "react-bootstrap/NavDropdown";
 import Button from "react-bootstrap/Button";
-import styles from "../styles/Home.module.css";
+import styles from "../../styles/Home.module.css";
 
 export default function NavigationBar() {
   const [loggedIn, setLoggedIn] = useState(false);
+  const [navItems, setNavItems] = useState([]);
+  const [navDropdownItems, setNavDropdownItems] = useState([]);
   const router = useRouter();
 
   useEffect(async () => {
@@ -23,6 +27,15 @@ export default function NavigationBar() {
       console.error(error);
     }
   }, []);
+
+  useEffect(() => {
+    resolveNavItems(loggedIn, "nav-items").then((resolvedNavItems) =>
+      setNavItems(resolvedNavItems, ...navItems)
+    );
+    resolveNavItems(loggedIn, "nav-dropdown-items").then((resolvedNavItems) =>
+      setNavDropdownItems(resolvedNavItems, ...navItems)
+    );
+  }, [loggedIn]);
 
   const handleLogout = async () => {
     try {
@@ -44,14 +57,22 @@ export default function NavigationBar() {
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav className="mr-auto">
             <Nav.Link href="/">Home</Nav.Link>
-            <Nav.Link href="/services">Services</Nav.Link>
+            {navItems.map((NavItem) => (
+              <NavItem key={generateKey()} />
+            ))}
           </Nav>
-          {loggedIn ? (
+          {loggedIn && navDropdownItems[0] ? (
             <Nav className="mr-auto" className={styles["nav-container"]}>
               <NavDropdown title="Account" id="basic-nav-dropdown">
-                <NavDropdown.Item href="/active-services">
-                  Active Services
-                </NavDropdown.Item>
+                {navDropdownItems.map((NavItem) => {
+                  return (
+                    <div key={generateKey()}>
+                      <NavItem />
+                      {navDropdownItems.indexOf(NavItem) !==
+                        navDropdownItems.length - 1 && <NavDropdown.Divider />}
+                    </div>
+                  );
+                })}
               </NavDropdown>
               <Button onClick={handleLogout} variant="outline-secondary">
                 Logout

@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from "react";
 import FadeIn from "react-fade-in";
 import { motion, AnimateSharedLayout } from "framer-motion";
+import { useRouter } from "next/router";
 import Button from "react-bootstrap/Button";
 import Loader from "../components/Loader";
-import { useRouter } from "next/router";
 import ListItem from "../components/ListItem";
 import MetaData from "../components/MetaData";
-import NavigationBar from "../components/NavigationBar";
+import NavigationBar from "../components/Navigation/NavigationBar";
 import { auth } from "../config/auth-config";
 import { getActiveServices } from "../cms";
 import styles from "../styles/Home.module.css";

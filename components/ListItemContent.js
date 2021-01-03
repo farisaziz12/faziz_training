@@ -1,10 +1,20 @@
 import React from "react";
 import { generateKey } from "../functions";
 import { motion } from "framer-motion";
-import { dateParse } from "../functions";
+import {
+  dateParse,
+  renderEmptyDiv,
+  getDuration,
+  handleDisplayCapacity,
+} from "../functions";
 import styles from "../styles/Home.module.css";
 
-function ListItemContent({ content, type, toggleOpen, buttons }) {
+export default function ListItemContent({
+  content,
+  type,
+  toggleOpen,
+  buttons,
+}) {
   const {
     description,
     display_price,
@@ -34,8 +44,31 @@ function ListItemContent({ content, type, toggleOpen, buttons }) {
           </p>
         </div>
       );
+    } else if (type === "classes") {
+      const {
+        start_time,
+        end_time,
+        location,
+        coach,
+        capacity,
+        athletes,
+      } = content.class;
+
+      return (
+        <div>
+          <strong>Coach: </strong>
+          <p className={styles["p-text"]}>{coach?.name}</p>
+          <strong>Location: </strong>
+          <p className={styles["p-text"]}>{location?.name}</p>
+          <p className={styles["p-text"]}>
+            <strong>Duration: </strong>
+            {getDuration(start_time, end_time)}
+          </p>
+          {handleDisplayCapacity(athletes.length, capacity)}
+        </div>
+      );
     } else {
-      return <div style={{ display: "none" }}></div>;
+      renderEmptyDiv();
     }
   };
 
@@ -58,11 +91,3 @@ function ListItemContent({ content, type, toggleOpen, buttons }) {
     </div>
   );
 }
-
-export async function getServerSideProps(context) {
-  return {
-    props: { initialButtons: [] }, // will be passed to the page component as props
-  };
-}
-
-export default ListItemContent;
