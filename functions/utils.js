@@ -173,7 +173,7 @@ export const generateClassName = (time, name) => {
 };
 
 export const handleDisplayCapacity = (attending, capacity) => {
-  if (attending === capacity) {
+  if (attending >= capacity) {
     return <strong style={{ color: "red" }}>Class Full</strong>;
   } else {
     return (
