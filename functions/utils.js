@@ -47,13 +47,15 @@ export const generateTotal = (items, multiplicationFactor) => {
 };
 
 export const generateClassList = (classes) => {
-  const classesArr = classes.map((classData) => {
-    const { date } = classData;
-    return {
-      day: dayAndDate(date),
-      class: classData,
-    };
-  });
+  const classesArr = classes
+    .sort((a, b) => Date.parse(a.date) - Date.parse(b.date))
+    .map((classData) => {
+      const { date } = classData;
+      return {
+        day: dayAndDate(date),
+        class: classData,
+      };
+    });
 
   return groupClassesByDay(classesArr);
 };
