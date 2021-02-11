@@ -15,6 +15,7 @@ const initialDateRange = {
 
 export default function Classes() {
   const [classes, setClasses] = useState([]);
+  const [loading, setLoading] = useState(true);
   const [dateRange, setDateRange] = useState(initialDateRange);
 
   useEffect(async () => {
@@ -22,33 +23,40 @@ export default function Classes() {
       const classesData = await getClasses(dateRange.start, dateRange.end);
       const classesArr = generateClassList(classesData);
       setClasses(classesArr);
+      setLoading(false);
     } catch (error) {
       console.error(error);
     }
   }, [dateRange]);
 
+  const renderClasses = () => {
+    if (classes[0] && !loading) {
+      return (
+        <FadeIn delay={500}>
+          <div className={styles["flex-grid"]}>
+            {classes.map((classData) => (
+              <ExpandableList
+                key={generateKey()}
+                listTitle={classData.date}
+                list={classData.classes}
+                type="classes"
+              />
+            ))}
+          </div>
+        </FadeIn>
+      );
+    } else if (loading) {
+      return <Loader />;
+    } else if (!loading) {
+      return <h1>None</h1>;
+    }
+  };
+
   return (
     <div className={styles.container}>
       <MetaData />
       <NavigationBar />
-      <main className={styles.main}>
-        {classes[0] ? (
-          <FadeIn delay={500}>
-            <div className={styles["flex-grid"]}>
-              {classes.map((classData) => (
-                <ExpandableList
-                  key={generateKey()}
-                  listTitle={classData.date}
-                  list={classData.classes}
-                  type="classes"
-                />
-              ))}
-            </div>
-          </FadeIn>
-        ) : (
-          <Loader />
-        )}
-      </main>
+      <main className={styles.main}>{renderClasses()}</main>
 
       <footer className={styles.footer}>
         <p>Powered by WOD-WITH-FARIS</p>
