@@ -42,7 +42,7 @@ export const BuyButton = (loggedInState, id) => {
 
 export const LinkButton = (loggedInState, id, link) => {
   return (
-    <a href={link} target="_blank">
+    <a href={link}>
       <Button variant="success" className={styles.center}>
         Link
       </Button>
@@ -191,13 +191,14 @@ export const ClassBookButton = (loggedInState, id, link, updateComponent) => {
   const router = useRouter();
 
   useEffect(() => {
+    checkIfClassFull(id).then(setIsFull);
     checkBooking(id).then(setIsBooked);
     checkClassPasses().then((passes) => setCanBook(passes.available));
   }, [loggedInState]);
 
   useEffect(() => {
-    setTimeout(() => setLoading(false), 150);
-  }, []);
+    setTimeout(() => setLoading(false), 600);
+  }, [loading]);
 
   const handleBookClass = () => {
     handleClass(id, "book").then((bookingResp) => {
@@ -211,6 +212,7 @@ export const ClassBookButton = (loggedInState, id, link, updateComponent) => {
   const handleCancelClass = () => {
     handleClass(id, "cancel").then((cancellationResp) => {
       if (cancellationResp) {
+        setLoading(true);
         setIsBooked(false);
         checkIfClassFull(id).then(setIsFull);
         updateComponent("cancel-class");
@@ -219,23 +221,21 @@ export const ClassBookButton = (loggedInState, id, link, updateComponent) => {
   };
 
   const renderButton = () => {
-    if (!loading && isBooked) {
+    if (loading) {
       return (
-        <Button
-          variant="danger"
-          className={styles.center}
-          onClick={handleCancelClass}
-        >
+        <Button variant="secondary" className={styles.center} disabled={true}>
+          Loading...
+        </Button>
+      );
+    } else if (!loading && isBooked) {
+      return (
+        <Button variant="danger" className={styles.center} onClick={handleCancelClass}>
           Cancel Booking
         </Button>
       );
     } else if (!loading && !isBooked && canBook && !isFull) {
       return (
-        <Button
-          variant="success"
-          className={styles.center}
-          onClick={handleBookClass}
-        >
+        <Button variant="success" className={styles.center} onClick={handleBookClass}>
           Book Class
         </Button>
       );
@@ -253,12 +253,6 @@ export const ClassBookButton = (loggedInState, id, link, updateComponent) => {
           onClick={() => router.push("/services")}
         >
           Buy Class Passes
-        </Button>
-      );
-    } else {
-      return (
-        <Button variant="secondary" className={styles.center} disabled={true}>
-          Loading...
         </Button>
       );
     }
