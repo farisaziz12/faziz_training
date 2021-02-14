@@ -47,21 +47,18 @@ const updateAmount = async (id, prevAmount) => {
 };
 
 const sendEmail = (senderName, senderEmail, subject, body) => {
+  const { name, date, amount_left, time, additionalDetails } = body;
   const msg = {
     to: process.env.NEXT_PUBLIC_RECEIVE_EMAIL,
     from: process.env.NEXT_PUBLIC_SEND_EMAIL,
     subject: `BOOKING REQUEST FROM ${senderName + " @ " + senderEmail}`,
     text: `Subject: ${subject}`,
-    html: `<p>Service: ${escape(body.name)}</p></br>
-    <p>Amount Left (before token reduction): ${escape(
-      body.amount_left
-    )}</p></br>
+    html: `<p>Service: ${escape(name)}</p></br>
+    <p>Amount Left (before token reduction): ${escape(amount_left)}</p></br>
     <p>Note: 1 Token has been automatically deducted</p></br>
-    <p>Requested Date and Time: ${escape(dateParse(body.date))} @ ${escape(
-      body.time
-    )}</p></br>
+    <p>Requested Date and Time: ${escape(dateParse(date))} @ ${escape(time)}</p></br>
     <p>Additional Details: ${
-      body.additionalDetails ? escape(body.additionalDetails) : " none"
+      additionalDetails ? escape(additionalDetails) : " none"
     }</p></br>
     <a href="mailto:${escape(senderEmail)}">Respond</a>`,
   };
